@@ -1,0 +1,52 @@
+services:
+  app:
+    build: .
+    container_name: finai_app
+    restart: always
+    environment:
+      - VIRTUAL_HOST=fourneyron.digital
+      - VIRTUAL_PORT=8501
+      - LETSENCRYPT_HOST=fourneyron.digital
+      - LETSENCRYPT_EMAIL=antoinefourneyron@gmail.com
+    networks:
+      - webproxy
+
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    container_name: nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "444:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - certs:/etc/nginx/certs
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+    networks:
+      - webproxy
+
+  acme-companion:
+    image: nginxproxy/acme-companion
+    container_name: acme-companion
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - certs:/etc/nginx/certs
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - acme:/etc/acme.sh
+    depends_on:
+      - nginx-proxy
+    networks:
+      - webproxy
+
+networks:
+  webproxy:
+    driver: bridge
+
+volumes:
+  certs:
+  vhost:
+  html:
+  acme:

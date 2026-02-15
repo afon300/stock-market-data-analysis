@@ -144,6 +144,13 @@ ENV/
 env.bak/
 venv.bak/
 
+# Project Specific
+market_data.db
+*.log
+
+# Visual Studio Code
+.vscode/
+
 # Spyder project settings
 .spyderproject
 .spyproject

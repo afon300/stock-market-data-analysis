@@ -1,0 +1,10 @@
+yfinance
+pandas
+streamlit
+plotly
+pandas_ta
+matplotlib
+seaborn
+scikit-learn
+sqlalchemy
+pytest
