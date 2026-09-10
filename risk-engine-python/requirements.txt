@@ -1,5 +1,7 @@
+pandas==2.1.0
+numpy==1.25.2
+pytest==7.4.0
 yfinance
-pandas
 streamlit
 plotly
 pandas_ta
@@ -7,4 +9,4 @@ matplotlib
 seaborn
 scikit-learn
 sqlalchemy
-pytest
+sqlite3
